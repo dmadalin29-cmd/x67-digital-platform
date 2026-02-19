@@ -1,0 +1,154 @@
+{
+  "brand_identity": {
+    "name": "x67 Digital",
+    "legal_entity": "x67 Digital Media Groupe",
+    "domain": "x67digital.co.uk",
+    "core_values": ["Exclusivity", "Thrill", "Transparency", "Modernity"],
+    "emotional_tone": "High-stakes luxury, electric excitement, trustworthy precision.",
+    "visual_archetype": "ARCHETYPE 7: ELECTRIC & NEON (Modified for Luxury)",
+    "theme_mode": "dark"
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Unbounded, sans-serif",
+      "body": "Manrope, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "scale": {
+      "h1": "text-5xl md:text-7xl font-black tracking-tighter uppercase",
+      "h2": "text-4xl md:text-5xl font-bold tracking-tight",
+      "h3": "text-2xl md:text-3xl font-bold tracking-tight",
+      "body_lg": "text-lg md:text-xl font-normal leading-relaxed",
+      "body_base": "text-base font-normal leading-relaxed text-muted-foreground",
+      "caption": "text-xs font-medium uppercase tracking-widest text-muted-foreground"
+    },
+    "imports": [
+      "@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&family=Manrope:wght@200..800&family=JetBrains+Mono:wght@400;700&display=swap');"
+    ]
+  },
+  "colors": {
+    "base": {
+      "background": "#050505",
+      "foreground": "#FFFFFF",
+      "card": "#0A0A0A",
+      "card_foreground": "#FFFFFF",
+      "popover": "#0F0F0F",
+      "popover_foreground": "#FFFFFF",
+      "border": "#1F1F1F"
+    },
+    "primary": {
+      "DEFAULT": "#D4AF37",
+      "foreground": "#000000",
+      "description": "Electric Gold - Use for main CTAs, winning moments, and premium accents."
+    },
+    "secondary": {
+      "DEFAULT": "#00F0FF",
+      "foreground": "#000000",
+      "description": "Cyber Cyan - Use for countdowns, 'Live' indicators, and tech accents."
+    },
+    "accent": {
+      "DEFAULT": "#1A1A1A",
+      "foreground": "#D4AF37",
+      "description": "Dark Carbon - Use for secondary surfaces and hover states."
+    },
+    "muted": {
+      "DEFAULT": "#141414",
+      "foreground": "#888888"
+    },
+    "gradients": {
+      "gold_rush": "linear-gradient(135deg, #D4AF37 0%, #AA8A2E 100%)",
+      "cyber_fade": "linear-gradient(180deg, rgba(0, 240, 255, 0.1) 0%, rgba(5, 5, 5, 0) 100%)",
+      "glass_surface": "linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": {
+      "utility": "backdrop-blur-xl bg-black/40 border border-white/10",
+      "usage": "Sticky headers, floating cards, modal overlays"
+    },
+    "borders": {
+      "subtle": "border border-white/5",
+      "glow": "border border-primary/50 shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+    },
+    "shadows": {
+      "neon": "shadow-[0_0_20px_rgba(0,240,255,0.15)]",
+      "gold": "shadow-[0_0_20px_rgba(212,175,55,0.15)]"
+    },
+    "textures": {
+      "carbon": "url('/assets/carbon-fiber-pattern.png')",
+      "noise": "url('/assets/noise.png')"
+    }
+  },
+  "layout_system": {
+    "container": "max-w-7xl mx-auto px-4 md:px-8",
+    "grid_modes": {
+      "bento_hero": "grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8",
+      "competition_grid": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+    },
+    "spacing": {
+      "section_y": "py-24 md:py-32",
+      "element_gap": "gap-6"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground hover:bg-primary/90 rounded-none uppercase font-bold tracking-wide transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]",
+      "secondary": "bg-transparent border border-white/20 text-white hover:bg-white/10 rounded-none uppercase font-bold tracking-wide transition-all",
+      "glow": "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-full shadow-[0_0_15px_rgba(0,240,255,0.5)]"
+    },
+    "cards": {
+      "competition": "group relative overflow-hidden bg-card border border-border/50 hover:border-primary/50 transition-all duration-500 rounded-xl",
+      "feature": "bg-accent/50 border border-white/5 p-8 rounded-2xl hover:bg-accent transition-colors"
+    },
+    "inputs": {
+      "default": "bg-background/50 border-white/10 focus:border-primary/50 focus:ring-1 focus:ring-primary/50 rounded-lg h-12"
+    }
+  },
+  "motion": {
+    "transitions": "transition-all duration-300 ease-out",
+    "hover_effects": "hover:-translate-y-1 hover:shadow-lg",
+    "page_transition": {
+      "initial": { "opacity": 0, "y": 20 },
+      "animate": { "opacity": 1, "y": 0 },
+      "exit": { "opacity": 0, "y": -20 }
+    }
+  },
+  "image_urls": {
+    "hero": {
+      "main_car": "https://images.unsplash.com/photo-1765461734605-34657fa04db2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzl8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBtZXJjZWRlcyUyMGFtZyUyMGd0JTIwZGFyayUyMHN0dWRpbyUyMGxpZ2h0aW5nfGVufDB8fHx8MTc3MTUyOTEzOHww&ixlib=rb-4.1.0&q=85",
+      "background_texture": "https://images.unsplash.com/photo-1577657071619-ba70d1b6f376?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzl8MHwxfHNlYXJjaHwyfHxsdXh1cnklMjBtZXJjZWRlcyUyMGFtZyUyMGd0JTIwZGFyayUyMHN0dWRpbyUyMGxpZ2h0aW5nfGVufDB8fHx8MTc3MTUyOTEzOHww&ixlib=rb-4.1.0&q=85"
+    },
+    "competitions": {
+      "mercedes_amg": "https://images.pexels.com/photos/26563767/pexels-photo-26563767.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "bmw_m4": "https://images.unsplash.com/photo-1706811422966-24bfa91695c3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHw0fHxibXclMjBtNCUyMGNvbXBldGl0aW9uJTIwZGFyayUyMGFnZ3Jlc3NpdmUlMjBmcm9udCUyMGFuZ2xlfGVufDB8fHx8MTc3MTUyOTE0OXww&ixlib=rb-4.1.0&q=85",
+      "audi_rs6": "https://images.unsplash.com/photo-1654855383391-765987e87c7f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjV8MHwxfHNlYXJjaHw0fHxhdWRpJTIwcnM2JTIwYXZhbnQlMjBncmV5JTIwZGFyayUyMGFlc3RoZXRpY3xlbnwwfHx8fDE3NzE1MjkxNTB8MA&ixlib=rb-4.1.0&q=85",
+      "iphone_15": "https://images.pexels.com/photos/18525574/pexels-photo-18525574.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "ps5_setup": "https://images.pexels.com/photos/13189290/pexels-photo-13189290.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    },
+    "winners": {
+      "happy_winner_1": "https://images.pexels.com/photos/6805162/pexels-photo-6805162.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "happy_winner_2": "https://images.pexels.com/photos/16966369/pexels-photo-16966369.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    },
+    "trust": {
+      "payments": ["visa", "mastercard", "apple-pay", "google-pay"]
+    }
+  },
+  "instructions_to_main_agent": [
+    "Install 'lucide-react' and 'framer-motion' immediately.",
+    "Update 'tailwind.config.js' with the colors defined above. Extend the theme, do not overwrite default Shadcn variables where possible, but override Primary and Background.",
+    "Create a 'Navbar' that is sticky, glassmorphic, and uses the 'Unbounded' font for the logo.",
+    "The Hero section must use the 'Main Car' image with a 'Gold Rush' gradient overlay for text readability.",
+    "Competition Cards must have a 'Tickets Left' progress bar using the Secondary Color (Cyan).",
+    "Use 'Sonner' for all notifications (e.g., 'Ticket Added to Cart').",
+    "Ensure all forms (Login, Register) use the defined Input styles with the glowing focus state.",
+    "The Admin Dashboard should be denser (Grid Mode B) but keep the dark theme aesthetic.",
+    "Add 'data-testid' to all interactive elements."
+  ],
+  "universal_guidelines": [
+    "Do not use generic 'Inter' for headings. Use 'Unbounded'.",
+    "Avoid full-screen gradients. Use gradients only as subtle glows or text accents.",
+    "Ensure 4.5:1 contrast ratio for all text.",
+    "Mobile images max-height: 80vh.",
+    "Use 2-3x padding for 'Luxury' feel."
+  ]
+}
