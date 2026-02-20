@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+  
   return (
     <footer className="bg-card border-t border-border">
       <div className="section-container section-padding">
@@ -15,7 +18,7 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              The UK's premier competition platform. Win luxury cars, electronics, and cash prizes with verified draws and guaranteed winners.
+              {t("footerDescription")}
             </p>
             <div className="flex gap-4">
               <a href="#" className="text-muted-foreground hover:text-gold-500 transition-colors" data-testid="social-facebook">
@@ -35,20 +38,19 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-heading font-bold text-white mb-4 uppercase tracking-wide text-sm">Quick Links</h4>
+            <h4 className="font-heading font-bold text-white mb-4 uppercase tracking-wide text-sm">{t("quickLinks")}</h4>
             <ul className="space-y-3">
               {[
-                { to: "/competitions", label: "All Competitions" },
-                { to: "/winners", label: "Previous Winners" },
-                { to: "/faq", label: "FAQ" },
-                { to: "/terms", label: "Terms & Conditions" },
-                { to: "/privacy", label: "Privacy Policy" },
+                { to: "/competitions", label: t("allCompetitionsLink") },
+                { to: "/winners", label: t("previousWinners") },
+                { to: "/faq", label: t("faq") },
+                { to: "/terms", label: t("termsConditions") },
+                { to: "/privacy", label: t("privacyPolicy") },
               ].map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}
                     className="text-muted-foreground hover:text-gold-500 transition-colors text-sm"
-                    data-testid={`footer-${link.label.toLowerCase().replace(/ /g, "-")}`}
                   >
                     {link.label}
                   </Link>
@@ -59,12 +61,12 @@ const Footer = () => {
 
           {/* Categories */}
           <div>
-            <h4 className="font-heading font-bold text-white mb-4 uppercase tracking-wide text-sm">Categories</h4>
+            <h4 className="font-heading font-bold text-white mb-4 uppercase tracking-wide text-sm">{t("categories")}</h4>
             <ul className="space-y-3">
               {[
-                { to: "/competitions?category=cars", label: "Car Competitions" },
-                { to: "/competitions?category=electronics", label: "Electronics" },
-                { to: "/competitions?category=cash", label: "Cash Prizes" },
+                { to: "/competitions?category=cars", label: t("carCompetitions") },
+                { to: "/competitions?category=electronics", label: t("electronics") },
+                { to: "/competitions?category=cash", label: t("cashPrizes") },
               ].map((link) => (
                 <li key={link.to}>
                   <Link
@@ -80,7 +82,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-heading font-bold text-white mb-4 uppercase tracking-wide text-sm">Contact Us</h4>
+            <h4 className="font-heading font-bold text-white mb-4 uppercase tracking-wide text-sm">{t("contactUs")}</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-muted-foreground text-sm">
                 <Mail className="w-4 h-4 mt-0.5 text-gold-500" />
@@ -119,11 +121,11 @@ const Footer = () => {
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                 <path d="M9 12l2 2 4-4"/>
               </svg>
-              <span>SSL Secured</span>
+              <span>{t("sslSecured")}</span>
             </div>
             <div className="text-muted-foreground text-xs flex items-center gap-2">
               <span>18+</span>
-              <span>Responsible Gaming</span>
+              <span>{t("responsibleGaming")}</span>
             </div>
           </div>
         </div>
@@ -131,11 +133,10 @@ const Footer = () => {
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-border text-center">
           <p className="text-muted-foreground text-xs">
-            © {new Date().getFullYear()} x67 Digital Media Groupe. All rights reserved. 
-            Registered in England & Wales.
+            © {new Date().getFullYear()} x67 Digital Media Groupe. {t("allRightsReserved")} {t("registeredEngland")}
           </p>
           <p className="text-muted-foreground text-xs mt-2">
-            x67digital.co.uk operates prize competitions under UK gambling regulations.
+            {t("operatesPrizeCompetitions")}
           </p>
         </div>
       </div>
