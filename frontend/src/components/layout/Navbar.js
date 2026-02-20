@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, User, LogOut, LayoutDashboard, Trophy, ChevronDown } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -10,10 +11,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import LanguageToggle from "./LanguageToggle";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -22,9 +25,9 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { href: "/competitions", label: "Competitions" },
-    { href: "/winners", label: "Winners" },
-    { href: "/faq", label: "FAQ" },
+    { href: "/competitions", label: t("competitions") },
+    { href: "/winners", label: t("winners") },
+    { href: "/faq", label: t("faq") },
   ];
 
   return (
@@ -46,15 +49,18 @@ const Navbar = () => {
                 key={link.href}
                 to={link.href}
                 className="text-sm font-medium text-muted-foreground hover:text-white transition-colors uppercase tracking-wide"
-                data-testid={`nav-${link.label.toLowerCase()}`}
+                data-testid={`nav-${link.href.slice(1)}`}
               >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          {/* Auth Buttons / User Menu */}
+          {/* Right Side: Language Toggle + Auth */}
           <div className="hidden md:flex items-center gap-4">
+            {/* Language Toggle */}
+            <LanguageToggle />
+            
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -74,14 +80,14 @@ const Navbar = () => {
                   <DropdownMenuItem asChild>
                     <Link to="/dashboard" className="flex items-center gap-2 cursor-pointer" data-testid="nav-dashboard">
                       <LayoutDashboard className="w-4 h-4" />
-                      Dashboard
+                      {t("dashboard")}
                     </Link>
                   </DropdownMenuItem>
                   {user.role === "admin" && (
                     <DropdownMenuItem asChild>
                       <Link to="/admin" className="flex items-center gap-2 cursor-pointer" data-testid="nav-admin">
                         <Trophy className="w-4 h-4" />
-                        Admin Panel
+                        {t("adminPanel")}
                       </Link>
                     </DropdownMenuItem>
                   )}
@@ -92,7 +98,7 @@ const Navbar = () => {
                     data-testid="nav-logout"
                   >
                     <LogOut className="w-4 h-4" />
-                    Logout
+                    {t("logout")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -100,26 +106,29 @@ const Navbar = () => {
               <>
                 <Link to="/login">
                   <Button variant="ghost" className="text-white hover:text-gold-500" data-testid="nav-login">
-                    Login
+                    {t("login")}
                   </Button>
                 </Link>
                 <Link to="/register">
                   <Button className="btn-primary px-6" data-testid="nav-register">
-                    Register
+                    {t("register")}
                   </Button>
                 </Link>
               </>
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-white"
-            data-testid="mobile-menu-toggle"
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile: Language Toggle + Menu Button */}
+          <div className="md:hidden flex items-center gap-3">
+            <LanguageToggle />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 text-white"
+              data-testid="mobile-menu-toggle"
+            >
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </nav>
 
         {/* Mobile Menu */}
@@ -141,13 +150,13 @@ const Navbar = () => {
                   <>
                     <Link to="/dashboard" onClick={() => setIsOpen(false)}>
                       <Button variant="ghost" className="w-full justify-start">
-                        Dashboard
+                        {t("dashboard")}
                       </Button>
                     </Link>
                     {user.role === "admin" && (
                       <Link to="/admin" onClick={() => setIsOpen(false)}>
                         <Button variant="ghost" className="w-full justify-start">
-                          Admin Panel
+                          {t("adminPanel")}
                         </Button>
                       </Link>
                     )}
@@ -159,18 +168,18 @@ const Navbar = () => {
                       }}
                       className="w-full justify-start text-destructive"
                     >
-                      Logout
+                      {t("logout")}
                     </Button>
                   </>
                 ) : (
                   <>
                     <Link to="/login" onClick={() => setIsOpen(false)}>
                       <Button variant="ghost" className="w-full">
-                        Login
+                        {t("login")}
                       </Button>
                     </Link>
                     <Link to="/register" onClick={() => setIsOpen(false)}>
-                      <Button className="btn-primary w-full">Register</Button>
+                      <Button className="btn-primary w-full">{t("register")}</Button>
                     </Link>
                   </>
                 )}
