@@ -7,10 +7,13 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { toast } from "sonner";
 import { useAuth } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
+import LanguageToggle from "../components/layout/LanguageToggle";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
   const { register } = useAuth();
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
@@ -29,12 +32,12 @@ const RegisterPage = () => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match");
+      toast.error(t("passwordsDoNotMatch"));
       return;
     }
 
     if (formData.password.length < 6) {
-      toast.error("Password must be at least 6 characters");
+      toast.error(t("passwordMinLength"));
       return;
     }
 
@@ -42,7 +45,7 @@ const RegisterPage = () => {
 
     try {
       await register(formData.email, formData.password, formData.full_name, formData.phone);
-      toast.success("Account created successfully!");
+      toast.success(t("accountCreatedSuccessfully"));
       navigate("/dashboard");
     } catch (error) {
       toast.error(error.message);
@@ -64,6 +67,11 @@ const RegisterPage = () => {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
+        {/* Language Toggle */}
+        <div className="flex justify-center mb-6">
+          <LanguageToggle />
+        </div>
+        
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-block">
@@ -72,7 +80,7 @@ const RegisterPage = () => {
               <span className="text-white">Digital</span>
             </span>
           </Link>
-          <p className="text-muted-foreground mt-2">Create your free account</p>
+          <p className="text-muted-foreground mt-2">{t("createFreeAccount")}</p>
         </div>
 
         {/* Register Form */}
@@ -103,7 +111,7 @@ const RegisterPage = () => {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
               />
             </svg>
-            Sign up with Google
+            {t("signUpWithGoogle")}
           </Button>
 
           <div className="relative mb-6">
@@ -111,13 +119,13 @@ const RegisterPage = () => {
               <div className="w-full border-t border-border"></div>
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-card px-2 text-muted-foreground">Or register with email</span>
+              <span className="bg-card px-2 text-muted-foreground">{t("orRegisterWithEmail")}</span>
             </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="full_name" className="text-white">Full Name</Label>
+              <Label htmlFor="full_name" className="text-white">{t("fullName")}</Label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
@@ -135,7 +143,7 @@ const RegisterPage = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-white">Email</Label>
+              <Label htmlFor="email" className="text-white">{t("email")}</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
@@ -153,7 +161,7 @@ const RegisterPage = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phone" className="text-white">Phone (Optional)</Label>
+              <Label htmlFor="phone" className="text-white">{t("phoneOptional")}</Label>
               <div className="relative">
                 <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
@@ -170,7 +178,7 @@ const RegisterPage = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-white">Password</Label>
+              <Label htmlFor="password" className="text-white">{t("password")}</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
@@ -196,7 +204,7 @@ const RegisterPage = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-white">Confirm Password</Label>
+              <Label htmlFor="confirmPassword" className="text-white">{t("confirmPassword")}</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
@@ -222,28 +230,28 @@ const RegisterPage = () => {
               {loading ? (
                 <span className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                  Creating account...
+                  {t("creatingAccount")}
                 </span>
               ) : (
-                "Create Account"
+                t("createAccount")
               )}
             </Button>
           </form>
 
           <p className="text-center text-sm text-muted-foreground mt-6">
-            Already have an account?{" "}
+            {t("alreadyHaveAccount")}{" "}
             <Link to="/login" className="text-gold-500 hover:underline" data-testid="login-link">
-              Sign in
+              {t("signIn")}
             </Link>
           </p>
         </div>
 
         {/* Footer */}
         <p className="text-center text-xs text-muted-foreground mt-8">
-          By creating an account, you agree to our{" "}
-          <Link to="/terms" className="text-gold-500 hover:underline">Terms</Link>
-          {" and "}
-          <Link to="/privacy" className="text-gold-500 hover:underline">Privacy Policy</Link>
+          {t("byCreatingAccount")}{" "}
+          <Link to="/terms" className="text-gold-500 hover:underline">{t("terms")}</Link>
+          {" "}{t("and")}{" "}
+          <Link to="/privacy" className="text-gold-500 hover:underline">{t("privacyPolicy")}</Link>
         </p>
       </motion.div>
     </div>
