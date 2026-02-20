@@ -18,6 +18,7 @@ import AuthCallback from "./pages/AuthCallback";
 
 // Context
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import { LanguageProvider } from "./context/LanguageContext";
 
 // Layout
 import Navbar from "./components/layout/Navbar";
