@@ -7,11 +7,14 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { toast } from "sonner";
 import { useAuth } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
+import LanguageToggle from "../components/layout/LanguageToggle";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
+  const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -25,7 +28,7 @@ const LoginPage = () => {
 
     try {
       await login(email, password);
-      toast.success("Welcome back!");
+      toast.success(t("welcomeBack"));
       navigate(from, { replace: true });
     } catch (error) {
       toast.error(error.message);
@@ -47,6 +50,11 @@ const LoginPage = () => {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
+        {/* Language Toggle */}
+        <div className="flex justify-center mb-6">
+          <LanguageToggle />
+        </div>
+        
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-block">
@@ -55,7 +63,7 @@ const LoginPage = () => {
               <span className="text-white">Digital</span>
             </span>
           </Link>
-          <p className="text-muted-foreground mt-2">Sign in to your account</p>
+          <p className="text-muted-foreground mt-2">{t("signInToAccount")}</p>
         </div>
 
         {/* Login Form */}
@@ -86,7 +94,7 @@ const LoginPage = () => {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
               />
             </svg>
-            Continue with Google
+            {t("continueWithGoogle")}
           </Button>
 
           <div className="relative mb-6">
@@ -94,13 +102,13 @@ const LoginPage = () => {
               <div className="w-full border-t border-border"></div>
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-card px-2 text-muted-foreground">Or continue with email</span>
+              <span className="bg-card px-2 text-muted-foreground">{t("orContinueWithEmail")}</span>
             </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-white">Email</Label>
+              <Label htmlFor="email" className="text-white">{t("email")}</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
@@ -117,7 +125,7 @@ const LoginPage = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-white">Password</Label>
+              <Label htmlFor="password" className="text-white">{t("password")}</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
@@ -149,28 +157,28 @@ const LoginPage = () => {
               {loading ? (
                 <span className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                  Signing in...
+                  {t("signingIn")}
                 </span>
               ) : (
-                "Sign In"
+                t("signIn")
               )}
             </Button>
           </form>
 
           <p className="text-center text-sm text-muted-foreground mt-6">
-            Don't have an account?{" "}
+            {t("dontHaveAccount")}{" "}
             <Link to="/register" className="text-gold-500 hover:underline" data-testid="register-link">
-              Create account
+              {t("createAccount")}
             </Link>
           </p>
         </div>
 
         {/* Footer */}
         <p className="text-center text-xs text-muted-foreground mt-8">
-          By signing in, you agree to our{" "}
-          <Link to="/terms" className="text-gold-500 hover:underline">Terms</Link>
-          {" and "}
-          <Link to="/privacy" className="text-gold-500 hover:underline">Privacy Policy</Link>
+          {t("bySigningIn")}{" "}
+          <Link to="/terms" className="text-gold-500 hover:underline">{t("terms")}</Link>
+          {" "}{t("and")}{" "}
+          <Link to="/privacy" className="text-gold-500 hover:underline">{t("privacyPolicy")}</Link>
         </p>
       </motion.div>
     </div>
