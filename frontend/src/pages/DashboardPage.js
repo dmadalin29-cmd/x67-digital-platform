@@ -5,10 +5,12 @@ import { Ticket, ShoppingBag, User, Trophy, Clock, ArrowRight } from "lucide-rea
 import { Button } from "../components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { useAuth } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
 import { API } from "../App";
 
 const DashboardPage = () => {
   const { user, token } = useAuth();
+  const { t } = useLanguage();
   const [tickets, setTickets] = useState([]);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -53,7 +55,7 @@ const DashboardPage = () => {
               </div>
               <div>
                 <h1 className="font-heading text-2xl md:text-3xl font-bold text-white">
-                  Welcome, {user?.full_name?.split(" ")[0]}!
+                  {t("welcome")}, {user?.full_name?.split(" ")[0]}!
                 </h1>
                 <p className="text-muted-foreground">{user?.email}</p>
               </div>
@@ -64,24 +66,24 @@ const DashboardPage = () => {
               <div className="glass-card rounded-xl p-4">
                 <Ticket className="w-5 h-5 text-gold-500 mb-2" />
                 <p className="text-2xl font-bold text-white">{totalTickets}</p>
-                <p className="text-xs text-muted-foreground">Total Tickets</p>
+                <p className="text-xs text-muted-foreground">{t("totalTicketsOwned")}</p>
               </div>
               <div className="glass-card rounded-xl p-4">
                 <Trophy className="w-5 h-5 text-cyan-500 mb-2" />
                 <p className="text-2xl font-bold text-white">{activeEntries}</p>
-                <p className="text-xs text-muted-foreground">Active Entries</p>
+                <p className="text-xs text-muted-foreground">{t("activeEntries")}</p>
               </div>
               <div className="glass-card rounded-xl p-4">
                 <ShoppingBag className="w-5 h-5 text-gold-500 mb-2" />
                 <p className="text-2xl font-bold text-white">{orders.length}</p>
-                <p className="text-xs text-muted-foreground">Total Orders</p>
+                <p className="text-xs text-muted-foreground">{t("totalOrders")}</p>
               </div>
               <div className="glass-card rounded-xl p-4">
                 <Clock className="w-5 h-5 text-cyan-500 mb-2" />
                 <p className="text-2xl font-bold text-white">
                   {tickets.filter((t) => t.status === "ending_soon").length}
                 </p>
-                <p className="text-xs text-muted-foreground">Ending Soon</p>
+                <p className="text-xs text-muted-foreground">{t("endingSoonCount")}</p>
               </div>
             </div>
           </motion.div>
@@ -94,10 +96,10 @@ const DashboardPage = () => {
           <Tabs defaultValue="tickets" className="space-y-6">
             <TabsList className="bg-card border border-border">
               <TabsTrigger value="tickets" className="data-[state=active]:bg-gold-500 data-[state=active]:text-black" data-testid="tab-tickets">
-                My Tickets
+                {t("myTickets")}
               </TabsTrigger>
               <TabsTrigger value="orders" className="data-[state=active]:bg-gold-500 data-[state=active]:text-black" data-testid="tab-orders">
-                Order History
+                {t("orderHistory")}
               </TabsTrigger>
             </TabsList>
 
@@ -111,13 +113,13 @@ const DashboardPage = () => {
               ) : tickets.length === 0 ? (
                 <div className="text-center py-12 glass-card rounded-xl">
                   <Ticket className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-white font-medium mb-2">No tickets yet</p>
+                  <p className="text-white font-medium mb-2">{t("noTicketsYet")}</p>
                   <p className="text-muted-foreground text-sm mb-4">
-                    Enter competitions to get your tickets
+                    {t("enterCompetitionsToGetTickets")}
                   </p>
                   <Link to="/competitions">
                     <Button className="btn-primary" data-testid="browse-competitions">
-                      Browse Competitions
+                      {t("browseCompetitionsBtn")}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
@@ -141,9 +143,9 @@ const DashboardPage = () => {
               ) : orders.length === 0 ? (
                 <div className="text-center py-12 glass-card rounded-xl">
                   <ShoppingBag className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-white font-medium mb-2">No orders yet</p>
+                  <p className="text-white font-medium mb-2">{t("noOrdersYet")}</p>
                   <p className="text-muted-foreground text-sm">
-                    Your purchase history will appear here
+                    {t("purchaseHistoryHere")}
                   </p>
                 </div>
               ) : (
@@ -162,6 +164,7 @@ const DashboardPage = () => {
 };
 
 const TicketCard = ({ entry }) => {
+  const { t } = useLanguage();
   const statusColors = {
     live: "text-green-500",
     ending_soon: "text-orange-500",
@@ -176,7 +179,7 @@ const TicketCard = ({ entry }) => {
           <div className="flex items-center gap-2 mb-2">
             <h3 className="font-bold text-white">{entry.competition_title}</h3>
             <span className={`text-xs font-bold uppercase ${statusColors[entry.status]}`}>
-              {entry.status?.replace("_", " ")}
+              {t(entry.status) || entry.status?.replace("_", " ")}
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -191,7 +194,7 @@ const TicketCard = ({ entry }) => {
           </div>
         </div>
         <div className="text-right">
-          <p className="text-xs text-muted-foreground">Draw Date</p>
+          <p className="text-xs text-muted-foreground">{t("drawDate")}</p>
           <p className="text-white font-medium">
             {entry.draw_date
               ? new Date(entry.draw_date).toLocaleDateString("en-GB", {
