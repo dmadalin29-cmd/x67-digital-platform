@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import { ArrowRight, Clock, Ticket, Trophy, Shield, Users, Zap } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Progress } from "../components/ui/progress";
+import { useLanguage } from "../context/LanguageContext";
 import { API } from "../App";
 
 const HomePage = () => {
+  const { t } = useLanguage();
   const [featuredComps, setFeaturedComps] = useState([]);
   const [allComps, setAllComps] = useState([]);
   const [winners, setWinners] = useState([]);
@@ -60,7 +62,7 @@ const HomePage = () => {
             >
               <span className="inline-flex items-center gap-2 px-4 py-2 bg-gold-500/20 border border-gold-500/50 rounded-full text-gold-500 text-xs font-bold uppercase tracking-wider mb-6">
                 <Zap className="w-3 h-3" />
-                Featured Competition
+                {t("featuredCompetition")}
               </span>
             </motion.div>
 
@@ -70,8 +72,8 @@ const HomePage = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-heading text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-white leading-none mb-6"
             >
-              WIN A<br />
-              <span className="text-gradient-gold">{heroComp?.title || "LUXURY CAR"}</span>
+              {t("winA")}<br />
+              <span className="text-gradient-gold">{heroComp?.title || "MAȘINĂ DE LUX"}</span>
             </motion.h1>
 
             <motion.p
@@ -80,7 +82,7 @@ const HomePage = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-muted-foreground mb-8 max-w-lg"
             >
-              {heroComp?.description?.slice(0, 150) || "Enter now for your chance to win incredible prizes. Verified draws, guaranteed winners."}...
+              {heroComp?.description?.slice(0, 150) || "Participă acum pentru șansa de a câștiga premii incredibile. Extrageri verificate, câștigători garantați."}...
             </motion.p>
 
             {heroComp && (
@@ -96,7 +98,7 @@ const HomePage = () => {
                 </div>
                 <div className="flex items-center gap-2 text-white">
                   <Ticket className="w-5 h-5 text-cyan-500" />
-                  <span>From £{heroComp.ticket_price}</span>
+                  <span>{t("from")} £{heroComp.ticket_price}</span>
                 </div>
                 <div className="flex items-center gap-2 text-white">
                   <Clock className="w-5 h-5 text-cyan-500" />
@@ -113,13 +115,13 @@ const HomePage = () => {
             >
               <Link to={heroComp ? `/competitions/${heroComp.competition_id}` : "/competitions"}>
                 <Button className="btn-primary h-14 px-8 text-base" data-testid="hero-cta">
-                  Enter Now
+                  {t("enterNow")}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
               <Link to="/competitions">
                 <Button variant="outline" className="btn-secondary h-14 px-8 text-base" data-testid="hero-view-all">
-                  View All Competitions
+                  {t("viewAllCompetitions")}
                 </Button>
               </Link>
             </motion.div>
@@ -132,10 +134,10 @@ const HomePage = () => {
         <div className="section-container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { icon: Shield, label: "SSL Secured", value: "256-bit Encryption" },
-              { icon: Trophy, label: "Winners", value: "100+ Verified" },
-              { icon: Users, label: "Members", value: "50,000+" },
-              { icon: Ticket, label: "Prizes Awarded", value: "£2M+" },
+              { icon: Shield, label: t("sslSecured"), value: t("encryption") },
+              { icon: Trophy, label: t("winners"), value: `100+ ${t("verified")}` },
+              { icon: Users, label: t("members"), value: "50,000+" },
+              { icon: Ticket, label: t("prizesAwarded"), value: "£2M+" },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center">
@@ -157,13 +159,13 @@ const HomePage = () => {
           <div className="flex items-end justify-between mb-12">
             <div>
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-2">
-                Live <span className="text-gradient-gold">Competitions</span>
+                {t("liveCompetitions").split(" ")[0]} <span className="text-gradient-gold">{t("liveCompetitions").split(" ").slice(1).join(" ")}</span>
               </h2>
-              <p className="text-muted-foreground">Enter now before they sell out</p>
+              <p className="text-muted-foreground">{t("enterBeforeSellOut")}</p>
             </div>
             <Link to="/competitions">
               <Button variant="ghost" className="text-gold-500 hover:text-gold-400" data-testid="view-all-comps">
-                View All <ArrowRight className="ml-2 w-4 h-4" />
+                {t("viewAll")} <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
           </div>
@@ -190,9 +192,9 @@ const HomePage = () => {
           <div className="section-container">
             <div className="text-center mb-12">
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-2">
-                Recent <span className="text-gradient-cyan">Winners</span>
+                {t("ourWinners").split(" ")[0]} <span className="text-gradient-cyan">{t("ourWinners").split(" ").slice(1).join(" ")}</span>
               </h2>
-              <p className="text-muted-foreground">Real people, real prizes</p>
+              <p className="text-muted-foreground">{t("realPeopleRealPrizes")}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -203,8 +205,8 @@ const HomePage = () => {
                   </div>
                   <div>
                     <p className="text-white font-bold text-lg">{winner.user_name}</p>
-                    <p className="text-gold-500 font-medium">Won {winner.competition_title}</p>
-                    <p className="text-muted-foreground text-sm">Prize: £{winner.prize_value?.toLocaleString()}</p>
+                    <p className="text-gold-500 font-medium">{winner.competition_title}</p>
+                    <p className="text-muted-foreground text-sm">{t("prizeValue")}: £{winner.prize_value?.toLocaleString()}</p>
                   </div>
                 </div>
               ))}
@@ -213,7 +215,7 @@ const HomePage = () => {
             <div className="text-center mt-8">
               <Link to="/winners">
                 <Button variant="outline" className="btn-secondary" data-testid="view-all-winners">
-                  View All Winners
+                  {t("viewAll")} {t("winners")}
                 </Button>
               </Link>
             </div>
@@ -226,14 +228,14 @@ const HomePage = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-gold-500/10 to-cyan-500/10" />
         <div className="section-container relative z-10 text-center">
           <h2 className="font-heading text-3xl md:text-5xl font-bold text-white mb-4">
-            Ready to <span className="text-gradient-gold">Win Big?</span>
+            {t("readyToWinBig").split(" ").slice(0, 2).join(" ")} <span className="text-gradient-gold">{t("readyToWinBig").split(" ").slice(2).join(" ")}</span>
           </h2>
           <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-            Join thousands of winners. Enter our competitions today and you could be driving away in your dream car.
+            {t("joinThousandsWinners")}
           </p>
           <Link to="/register">
             <Button className="btn-primary h-14 px-10 text-base" data-testid="cta-register">
-              Create Free Account
+              {t("createAccount")}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </Link>
@@ -245,6 +247,7 @@ const HomePage = () => {
 
 // Competition Card Component
 const CompetitionCard = ({ competition, index }) => {
+  const { t } = useLanguage();
   const ticketsRemaining = competition.total_tickets - competition.tickets_sold;
   const percentageSold = (competition.tickets_sold / competition.total_tickets) * 100;
 
@@ -253,6 +256,10 @@ const CompetitionCard = ({ competition, index }) => {
     ending_soon: "bg-orange-500",
     sold_out: "bg-red-500",
     completed: "bg-gray-500",
+  };
+
+  const getStatusText = (status) => {
+    return t(status) || status.replace("_", " ");
   };
 
   return (
@@ -279,7 +286,7 @@ const CompetitionCard = ({ competition, index }) => {
           <div className="absolute top-4 left-4">
             <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase ${statusColors[competition.status]} text-white`}>
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              {competition.status.replace("_", " ")}
+              {getStatusText(competition.status)}
             </span>
           </div>
 
@@ -299,7 +306,7 @@ const CompetitionCard = ({ competition, index }) => {
           
           <div className="flex items-center justify-between text-sm mb-4">
             <span className="text-gold-500 font-bold">
-              Worth £{competition.prize_value?.toLocaleString()}
+              £{competition.prize_value?.toLocaleString()}
             </span>
             <CountdownTimer drawDate={competition.draw_date} small />
           </div>
@@ -308,10 +315,10 @@ const CompetitionCard = ({ competition, index }) => {
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
               <span className="text-muted-foreground">
-                {ticketsRemaining.toLocaleString()} tickets left
+                {ticketsRemaining.toLocaleString()} {t("ticketsLeft")}
               </span>
               <span className="text-cyan-500 font-bold">
-                {percentageSold.toFixed(0)}% sold
+                {percentageSold.toFixed(0)}% {t("sold")}
               </span>
             </div>
             <Progress value={percentageSold} className="h-2 bg-muted" />
